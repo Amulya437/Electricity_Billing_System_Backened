@@ -33,8 +33,4 @@ public class Payment {
 	@ManyToOne
 	private Bill bill;
 	
-	
-	
-
 }
-
