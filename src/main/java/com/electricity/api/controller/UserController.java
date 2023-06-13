@@ -8,19 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.electricity.api.data.UserRepository;
 import com.electricity.api.model.User;
 
 
 
-@CrossOrigin(origins = {"http://localhost:3000"})
+//@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = {"*"})
 public class UserController {
 
 	@Autowired
@@ -70,4 +73,8 @@ public class UserController {
 		return "Private Role Hello";
 	}
 	
+	 
+	
 }
+
+

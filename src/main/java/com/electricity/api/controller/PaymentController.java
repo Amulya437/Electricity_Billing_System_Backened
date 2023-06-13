@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,12 @@ import com.electricity.api.model.Payment;
 import com.electricity.api.service.BillService;
 import com.electricity.api.service.CustomerService;
 import com.electricity.api.service.PaymentService;
+import com.electricity.api.util.LoggerUtil;
+
 
 @RestController
+//@CrossOrigin (origins = {"http://localhost:3000"})
+@CrossOrigin(origins = {"*"})
 public class PaymentController {
 
 	@Autowired
@@ -48,6 +53,7 @@ public class PaymentController {
 		if (!optionalBill.isPresent())
 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("entered invalid billId");
+		
 
 		// fetch the customer object based on customerId
 
@@ -56,6 +62,7 @@ public class PaymentController {
 		if (!optionalCustomer.isPresent())
 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("entered invalid custId");
+		
 
 		Bill bill = optionalBill.get();
 
@@ -68,7 +75,7 @@ public class PaymentController {
 		// save the payment object
 
 		paymentService.assign(payment);
-
+		LoggerUtil.logInfo("Payment Successful ");
 		return ResponseEntity.status(HttpStatus.OK).body("Payment Succesfull!!!");
 
 	}
@@ -76,6 +83,7 @@ public class PaymentController {
 	@GetMapping("/api/payment/getall")
 	public List<Payment> getAllPaymentRecords(){
 		List<Payment> list = paymentService.getAllPaymentRecords();
+		LoggerUtil.logInfo(" All Payments details ");
 		return list;
 	}
 	
@@ -86,6 +94,7 @@ public class PaymentController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID given");
 		
 		Payment payment = optional.get();
+		LoggerUtil.logInfo("Payment Details by ID ");
 		return ResponseEntity.status(HttpStatus.OK).body(payment);
 	}
 	
@@ -96,11 +105,11 @@ public class PaymentController {
 			@RequestBody Payment payment) throws PaymentNotFoundException{
 
 		paymentService.deletePaymentById(id);
-
+		LoggerUtil.logInfo("Payment Deleted ");
 		return ResponseEntity.status(HttpStatus.OK).body("Payment Record is Deleted");
 
 	}
-	
+
 
     //1.Get Payment by Customer id
 	
@@ -112,3 +121,4 @@ public class PaymentController {
 }
 
 }
+

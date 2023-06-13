@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 import com.electricity.api.data.UserRepository;
 import com.electricity.api.model.User;
 
-
-
 @Service
 public class UserService implements UserDetailsService{
 	
@@ -37,12 +35,5 @@ public class UserService implements UserDetailsService{
 				(user.getUsername(),user.getPassword(),list);
 		return springUser;
 	}
-	
-	
-	
-	
-
-	
-	
-
 }
+

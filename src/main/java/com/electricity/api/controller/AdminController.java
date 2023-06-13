@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,9 @@ import com.electricity.api.model.User;
 import com.electricity.api.service.AdminService;
 import com.electricity.api.util.LoggerUtil;
 
-@RestController
 
+@RestController
+@CrossOrigin(origins = {"*"})
 public class AdminController {
 
 	@Autowired
@@ -82,6 +84,7 @@ public class AdminController {
 	}
 	
 
+
 	// Get Api
 
 	@GetMapping("api/admin/getall")
@@ -130,4 +133,4 @@ public class AdminController {
 
 }
 
- 
+
