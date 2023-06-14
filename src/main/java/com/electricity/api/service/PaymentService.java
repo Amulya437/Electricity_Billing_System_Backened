@@ -1,6 +1,8 @@
 package com.electricity.api.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,13 +13,14 @@ import com.electricity.api.data.BillRepository;
 import com.electricity.api.data.PaymentRepository;
 import com.electricity.api.exception.PaymentNotFoundException;
 import com.electricity.api.model.Bill;
-import com.electricity.api.model.Customer;
 import com.electricity.api.model.Payment;
 
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,15 +47,55 @@ public class PaymentService extends Exception{
 
 	}
 
+//	public void assign(Payment payment) {
+//
+////		 // Generate transaction ID
+////	    String transactionId = UUID.randomUUID().toString();
+////
+////	    // Set the transaction ID in the payment object
+////	    payment.setTransactionId(transactionId);
+//
+//		payment.setTotalAmount(payment.getBill().getAmount() + latePaidAmount(payment));
+//
+//		paymentRepository.save(payment);
+//
+//	}
+	
+	
+
+	// ...
+
 	public void assign(Payment payment) {
-
-		// TODO Auto-generated method stub
-
-		payment.setTotalAmount(payment.getBill().getAmount() + latePaidAmount(payment));
-
-		paymentRepository.save(payment);
-
+	    payment.setTotalAmount(payment.getBill().getAmount() + latePaidAmount(payment));
+	    
+	    // Generate transaction ID
+	    String transactionId = generateTransactionId();
+	    payment.setTransactionId(transactionId);
+	    
+	    paymentRepository.save(payment);
 	}
+
+	private String generateTransactionId() {
+	    // Define the length of the transaction ID
+	    int length = 10;
+	    
+	    // Define the characters allowed in the transaction ID
+	    String allowedCharacters = "0123456789";
+	    
+	    Random random = new Random();
+	    StringBuilder transactionIdBuilder = new StringBuilder(length);
+	    
+	    // Generate random digits for the transaction ID
+	    for (int i = 0; i < length; i++) {
+	        int randomIndex = random.nextInt(allowedCharacters.length());
+	        char randomChar = allowedCharacters.charAt(randomIndex);
+	        transactionIdBuilder.append(randomChar);
+	    }
+	    
+	    return transactionIdBuilder.toString();
+	}
+
+	
 
 	public void deletePaymentById(int id) throws PaymentNotFoundException{
 		Optional<Payment> payment = paymentRepository.findById(id);
@@ -89,6 +132,7 @@ public class PaymentService extends Exception{
 		
 		return filteredList;
 	}
+	
 
 }
 

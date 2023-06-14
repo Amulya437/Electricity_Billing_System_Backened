@@ -6,7 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.electricity.api.data.CustomerRepository;
+import com.electricity.api.data.MeterRepository;
 import com.electricity.api.model.Customer;
+import com.electricity.api.model.Meter;
+
 
 @Service
 public class CustomerService {
@@ -56,6 +59,16 @@ public class CustomerService {
 		}
 
 	
+		@Service
+		public class MeterService {
+		    @Autowired
+		    private MeterRepository meterRepository;
+
+		    public Optional<Meter> findByMeterNo(int meterNo) {
+		        return ((MeterService) meterRepository).findByMeterNo(meterNo);
+		    }
+		}
+
 	}
 
 

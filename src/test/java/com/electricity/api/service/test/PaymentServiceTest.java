@@ -1,4 +1,4 @@
-package com.electricity.api.service;
+package com.electricity.api.service.test;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,10 +18,11 @@ import com.electricity.api.data.BillRepository;
 import com.electricity.api.data.PaymentRepository;
 import com.electricity.api.exception.PaymentNotFoundException;
 import com.electricity.api.model.Bill;
-import com.electricity.api.model.Customer;
-import com.electricity.api.model.Meter;
-import com.electricity.api.model.Payment;
-import com.electricity.api.model.User;
+import com.electricity.api.model.test.CustomerTest;
+import com.electricity.api.model.test.MeterTest;
+import com.electricity.api.model.test.PaymentTest;
+import com.electricity.api.model.test.UserTest;
+import com.electricity.api.service.PaymentService;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceTest {
@@ -32,27 +33,27 @@ public class PaymentServiceTest {
 	@Mock
 	private BillRepository billRepository;
 
-	private List<Payment> payments = new ArrayList();
+	private List<PaymentTest> payments = new ArrayList();
 
 	@InjectMocks
 
 	private PaymentService service;
 
-	private Payment payment;
+	private PaymentTest payment;
 
-	private Meter meter;
+	private MeterTest meter;
 
 	private Bill bill;
 
-	private Customer customer;
+	private CustomerTest customer;
 
-	private User user;
+	private UserTest user;
 
 	@BeforeEach
 
 	void setup() {
 
-		user = new User();
+		user = new UserTest();
 
 		user.setId(1);
 
@@ -64,7 +65,7 @@ public class PaymentServiceTest {
 
 		bill = new Bill();
 
-		customer = new Customer();
+		customer = new CustomerTest();
 
 		customer.setName("nagulu");
 
@@ -74,7 +75,7 @@ public class PaymentServiceTest {
 
 		customer.setContactNo("9090809090");
 
-		payment = new Payment();
+		payment = new PaymentTest();
 
 		bill.setId(101);
 
@@ -100,7 +101,7 @@ public class PaymentServiceTest {
 
 		payment.setTotalAmount(555);
 
-		meter = new Meter();
+		meter = new MeterTest();
 
 		meter.setId(1011);
 

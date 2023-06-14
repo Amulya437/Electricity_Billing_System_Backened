@@ -12,7 +12,7 @@ import com.electricity.api.data.BillRepository;
 import com.electricity.api.exception.BillNotFoundException;
 import com.electricity.api.exception.PaymentNotFoundException;
 import com.electricity.api.model.Bill;
-import com.electricity.api.model.Payment;
+
 
 
 @Service
@@ -46,23 +46,28 @@ public class BillService extends Exception{
 		return bill;
 	}
 	
-	public Bill updateBillById(Bill bill) throws BillNotFoundException{
-		Optional<Bill > existingBill = billRepository.findById(bill.getId());
-        if (!existingBill.isPresent()) {
-            throw new BillNotFoundException("Bill not found with ID: " + bill.getId());
-        }
-        return billRepository.save(bill);
-	}
-	
-	public void deleteBillById(int id) throws BillNotFoundException {
-		Optional<Bill> existingbill = billRepository.findById(id);
-		if (!existingbill.isPresent()) {
-			throw new BillNotFoundException("Bill not found with ID: " + id);
-		}
-		
+	//Update
+		public void updateBillById(Bill bill)throws BillNotFoundException {
+			 Optional<Bill> optionalBill = billRepository.findById(bill.getId());
+			    if (!optionalBill.isPresent()) {
+			        throw new BillNotFoundException("Bill not found with ID: " + bill.getId());
+			    }
 
-		billRepository.deleteById(id);
-	}
+			billRepository.save(bill);
+
+		}
+
+	//delete
+		public void deleteBillById(Bill bill) throws BillNotFoundException {
+			 Optional<Bill> optionalBill = billRepository.findById(bill.getId());
+			    if (!optionalBill.isPresent()) {
+			        throw new BillNotFoundException("Bill not found with ID: " + bill.getId());
+			    }
+
+
+			billRepository.delete(bill);
+
+		}
 	
 	//Get bill by  customer ID
 		public List<Bill> getBillByCustomerId(int cid) {

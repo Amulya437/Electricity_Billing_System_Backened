@@ -27,6 +27,8 @@ public class Payment {
 	
 	private LocalDate paymentDate;
 	
+	private String transactionId;
+	
 	@ManyToOne
 	private Customer customer;
 	

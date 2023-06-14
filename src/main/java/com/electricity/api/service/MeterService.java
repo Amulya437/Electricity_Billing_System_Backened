@@ -12,6 +12,7 @@ import com.electricity.api.model.Meter;
 
 
 
+
 @Service
 public class MeterService {
 	@Autowired
@@ -28,10 +29,15 @@ public class MeterService {
 	}
 	
 
-	 public List<Meter> getAllMeters() {
+	 public List<Meter> getAllMeterNumbers() {
 		// TODO Auto-generated method stub
 		 return meterRepository.findAll();
 	 }
+	public Optional<Meter> findByMeterNo(int meterNo) {
+		// TODO Auto-generated method stub
+		return meterRepository.findById(meterNo);
+	}
+	
 
 
 }

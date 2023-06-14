@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.electricity.api.model.Meter;
 import com.electricity.api.service.MeterService;
 
@@ -45,12 +44,10 @@ public class MeterController {
 			
 		}
 		
-		//GetAll API
-		@GetMapping("/api/meter/getall")
-		public List<Meter> getAllmeters(){
-			List<Meter> list = meterService.getAllMeters();
+		// GetAll API
+		@GetMapping("/api/getall")
+		public List<Meter> getAllMeterNumbers() {
+			List<Meter> list = meterService.getAllMeterNumbers();
 			return list;
-			
 		}
-
 }
