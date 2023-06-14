@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.electricity.api.data.UserRepository;
 import com.electricity.api.model.Admin;
-import com.electricity.api.model.Customer;
 import com.electricity.api.model.User;
 import com.electricity.api.service.AdminService;
 import com.electricity.api.util.LoggerUtil;

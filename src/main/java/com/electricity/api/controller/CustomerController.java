@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.electricity.api.data.UserRepository;
+import com.electricity.api.dto.Message;
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Meter;
 import com.electricity.api.model.User;
-import com.electricity.api.dto.Message;
 import com.electricity.api.service.CustomerService;
 import com.electricity.api.service.MeterService;
-import com.electricity.api.service.UserService;
+
 
 //@CrossOrigin (origins = {"http://localhost:3000"})
 @RestController
@@ -122,6 +122,16 @@ public class CustomerController {
 		        List<Customer> list = customerService.getCustomerByMeterId(mid);
 		        return list;
 	}
+//	    @GetMapping("/api/customer/meter/{meterno}")
+//	    public ResponseEntity<?> getCustomerDetailsByMeterNo(@PathVariable("meterno") int meterNo) {
+//	        Optional<Meter> optionalMeter = meterService.findByMeterNo(meterNo);
+//	        if (optionalMeter.isPresent()) {
+//	            Meter meter = optionalMeter.get();
+//	            Customer customer = meter.getCustomer();
+//	            return ResponseEntity.ok(customer);
+//	        } else {
+//	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body( "Not Found");
+//	        }
+	    }
 
-	
-}
+
