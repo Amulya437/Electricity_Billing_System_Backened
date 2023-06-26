@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.electricity.api.exception.PaymentNotFoundException;
+import com.electricity.api.exception.CustomerNotFoundException;
 import com.electricity.api.model.Bill;
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Payment;
@@ -22,6 +23,7 @@ import com.electricity.api.service.CustomerService;
 import com.electricity.api.service.PaymentService;
 
 @RestController
+@CrossOrigin(origins = {"*"})
 public class PaymentController {
 
 	@Autowired
@@ -80,7 +82,7 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/api/payment/{paymentId}")
-	public ResponseEntity<Object> getPaymentById(@PathVariable("paymentId") int paymentId) throws PaymentNotFoundException {
+	public ResponseEntity<Object> getPaymentById(@PathVariable("paymentId") int paymentId) throws CustomerNotFoundException {
 		Optional<Payment> optional = paymentService.getPaymentById(paymentId);
 		if (!optional.isPresent())
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID given");
@@ -93,7 +95,7 @@ public class PaymentController {
 	@DeleteMapping("/api/payment/delete/{paymentId}")
 
 	public ResponseEntity<String> deletePaymentById(@PathVariable("paymentId") int id,
-			@RequestBody Payment payment) throws PaymentNotFoundException{
+			@RequestBody Payment payment) throws CustomerNotFoundException{
 
 		paymentService.deletePaymentById(id);
 

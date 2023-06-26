@@ -18,9 +18,11 @@ import com.electricity.api.model.User;
 
 
 
-@CrossOrigin(origins = {"http://localhost:3000"})
+//@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
+@CrossOrigin(origins = {"*"})
 @RequestMapping("/api/user")
+
 public class UserController {
 
 	@Autowired

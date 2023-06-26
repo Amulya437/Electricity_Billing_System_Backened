@@ -1,5 +1,7 @@
 package com.electricity.api.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,6 +43,75 @@ public class Customer {
 	
 	@OneToOne
 	private User user;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Meter getMeter() {
+		return meter;
+	}
+
+	public void setMeter(Meter meter) {
+		this.meter = meter;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", contactNo=" + contactNo + ", email=" + email + ", address="
+				+ address + ", meter=" + meter + ", user=" + user + "]";
+	}
+
+	public Object thenReurn(List<Customer> customers) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 	
 	
 	

@@ -1,7 +1,7 @@
 package com.electricity.api.exception;
 
-public class PaymentNotFoundException  extends Exception{
-	public PaymentNotFoundException(String message) {
+public class CustomerNotFoundException  extends Exception{
+	public CustomerNotFoundException(String message) {
 		super(message);
 	}
 }

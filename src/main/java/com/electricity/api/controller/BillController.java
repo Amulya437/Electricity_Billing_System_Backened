@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.electricity.api.exception.BillNotFoundException;
-import com.electricity.api.exception.PaymentNotFoundException;
+import com.electricity.api.exception.CustomerNotFoundException;
 import com.electricity.api.model.Bill;
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Meter;
@@ -25,6 +26,7 @@ import com.electricity.api.service.CustomerService;
 import com.electricity.api.service.MeterService;
 
 @RestController
+@CrossOrigin(origins = {"*"})
 public class BillController extends Exception {
 
 	@Autowired
@@ -38,7 +40,7 @@ public class BillController extends Exception {
 
 	@PostMapping("/api/bill/add/{cid}/{mid}")
 	public ResponseEntity<String> postBill(@PathVariable("cid") int cid, @PathVariable("mid") int mid,
-			@RequestBody Bill bill) {
+			@RequestBody Bill bill) throws CustomerNotFoundException {
 
 		// fetch the meter object based on cid
 		Optional<Customer> optionalP = customerService.getCustomerById(cid);

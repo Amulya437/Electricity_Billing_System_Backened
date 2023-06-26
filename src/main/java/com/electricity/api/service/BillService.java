@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.electricity.api.data.BillRepository;
 import com.electricity.api.exception.BillNotFoundException;
-import com.electricity.api.exception.PaymentNotFoundException;
+import com.electricity.api.exception.CustomerNotFoundException;
 import com.electricity.api.model.Bill;
 import com.electricity.api.model.Payment;
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +22,15 @@ import com.electricity.api.model.Customer;
 import com.electricity.api.model.Meter;
 import com.electricity.api.model.User;
 import com.electricity.api.dto.Message;
+import com.electricity.api.exception.CustomerNotFoundException;
 import com.electricity.api.service.CustomerService;
 import com.electricity.api.service.MeterService;
 import com.electricity.api.service.UserService;
+import com.electricity.api.util.LoggerUtil;
 
 
 @RestController
+@CrossOrigin(origins = {"*"})
 public class CustomerController {
 	
 	@Autowired
@@ -76,7 +80,7 @@ public class CustomerController {
 	    // Return a success message in the response body
 	    Message message = new Message();
 	    message.setMsg("Customer Registration Is Done");
-	    
+	    LoggerUtil.logInfo("Customer details are Posted ");
 	    return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
 
@@ -90,32 +94,35 @@ public class CustomerController {
 		}
 		
 		@GetMapping("/api/customer/{customerId}")
-		public ResponseEntity<Object> getCustomerById(@PathVariable("customerId") int customerId) {
+		public ResponseEntity<Object> getCustomerById(@PathVariable("customerId") int customerId) throws CustomerNotFoundException {
 			Optional<Customer> optional = customerService.getCustomerById(customerId);
 			if (!optional.isPresent())
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID given");
 			
 			Customer customer = optional.get();
+			LoggerUtil.logInfo("view customer details are Posted ");
 			return ResponseEntity.status(HttpStatus.OK).body(customer);
 		}
 		
 		@PutMapping("/api/customer/put/{customerId}")
 		public ResponseEntity<String> updateCustomerById (@PathVariable("customerId") int customerId,@RequestBody Customer customer) {
 			customerService.updateCustomerById(customer);
+			LoggerUtil.logInfo("updated customer details are Posted ");
 			return ResponseEntity.status(HttpStatus.OK).body("Customer is updated");
 			}
 		
 		@DeleteMapping("/api/customer/delete/{customerId}")
-		public ResponseEntity<String> deleteCustomerById(@PathVariable("customerId") int customerId,@RequestBody Customer customer) {
+		public ResponseEntity<String> deleteCustomerById(@PathVariable("customerId") int customerId,@RequestBody Customer customer) throws CustomerNotFoundException {
 
 			customerService.deleteCustomerById(customer);
+			LoggerUtil.logInfo("deleted customer details are Posted ");
 			return ResponseEntity.status(HttpStatus.OK).body("Customer is Deleted");
 		}
 		
 		//Get customer by meter id
 		
 	    @GetMapping("/api/customer/meter/{mid}")
-	    public List<Customer> getCustomerByMeterId(@PathVariable("mid") int mid) {
+	    public List<Customer> getCustomerByMeterId(@PathVariable("mid") int mid) throws CustomerNotFoundException {
 	    	
 		        List<Customer> list = customerService.getCustomerByMeterId(mid);
 		        return list;

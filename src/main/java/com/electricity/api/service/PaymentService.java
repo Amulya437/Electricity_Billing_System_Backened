@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.electricity.api.data.BillRepository;
 
 import com.electricity.api.data.PaymentRepository;
-import com.electricity.api.exception.PaymentNotFoundException;
+import com.electricity.api.exception.CustomerNotFoundException;
 import com.electricity.api.model.Bill;
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Payment;
@@ -54,10 +54,10 @@ public class PaymentService extends Exception{
 
 	}
 
-	public void deletePaymentById(int id) throws PaymentNotFoundException{
+	public void deletePaymentById(int id) throws CustomerNotFoundException{
 		Optional<Payment> payment = paymentRepository.findById(id);
 		if (!payment.isPresent()) {
-			throw new PaymentNotFoundException("Payment not found with ID: " + id);
+			throw new CustomerNotFoundException("Payment not found with ID: " + id);
 		}
 		
 
@@ -70,17 +70,17 @@ public class PaymentService extends Exception{
 		return paymentRepository.findAll();
 	}
 
-	public Optional<Payment> getPaymentById(int id) throws PaymentNotFoundException{
+	public Optional<Payment> getPaymentById(int id) throws CustomerNotFoundException{
 		// TODO Auto-generated method stub
 		Optional<Payment> payment = paymentRepository.findById(id);
 		if (!payment.isPresent()) {
-			throw new PaymentNotFoundException("Payment not found with ID: " + id);
+			throw new CustomerNotFoundException("Payment not found with ID: " + id);
 		}
 		return payment;
 	}
 
 	// Get payment by customer ID
-	public List<Payment> getPaymentByCustomerId(int cid) throws PaymentNotFoundException{
+	public List<Payment> getPaymentByCustomerId(int cid) throws CustomerNotFoundException{
 		// Fetch all payments from the DB
 		List<Payment> list = paymentRepository.findAll();
 

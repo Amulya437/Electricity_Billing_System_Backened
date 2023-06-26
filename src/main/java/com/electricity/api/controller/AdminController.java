@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ import com.electricity.api.service.AdminService;
 import com.electricity.api.util.LoggerUtil;
 
 @RestController
-
+@CrossOrigin(origins = {"*"})
 public class AdminController {
 
 	@Autowired
