@@ -20,6 +20,23 @@ public class Meter {
 	private int id;
 	
 	private int meterNo;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getMeterNo() {
+		return meterNo;
+	}
+
+	public void setMeterNo(int meterNo) {
+		this.meterNo = meterNo;
+	}
+	
 	
 	
 

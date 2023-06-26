@@ -45,6 +45,79 @@ public class Bill {
     
     @ManyToOne
     private Meter meter;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getConsumerNumber() {
+		return consumerNumber;
+	}
+
+	public void setConsumerNumber(int consumerNumber) {
+		this.consumerNumber = consumerNumber;
+	}
+
+	public int getConsumedUnits() {
+		return consumedUnits;
+	}
+
+	public void setConsumedUnits(int consumedUnits) {
+		this.consumedUnits = consumedUnits;
+	}
+
+	public String getBillMonth() {
+		return billMonth;
+	}
+
+	public void setBillMonth(String billMonth) {
+		this.billMonth = billMonth;
+	}
+
+	public LocalDate getBillDate() {
+		return billDate;
+	}
+
+	public void setBillDate(LocalDate billDate) {
+		this.billDate = billDate;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public LocalDate getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(LocalDate dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Meter getMeter() {
+		return meter;
+	}
+
+	public void setMeter(Meter meter) {
+		this.meter = meter;
+	}
+    
     
    
 
