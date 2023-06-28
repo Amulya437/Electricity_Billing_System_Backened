@@ -105,11 +105,18 @@ public class Customer {
 		return "Customer [id=" + id + ", name=" + name + ", contactNo=" + contactNo + ", email=" + email + ", address="
 				+ address + ", meter=" + meter + ", user=" + user + "]";
 	}
-	public Object thenReurn(List<Customer> customers) {
 
-        // TODO Auto-generated method stub
 
-        return null;
+//	public Object thenReurn(List<Customer> customers) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	public Object thenReurn(List<Customer> customers) {
+//
+//        // TODO Auto-generated method stub
+//
+//        return null;
 
     }
 
@@ -123,4 +130,4 @@ public class Customer {
 	
 	
 
-}
+

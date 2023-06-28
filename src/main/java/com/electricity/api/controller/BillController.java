@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.electricity.api.exception.BillNotFoundException;
-import com.electricity.api.exception.PaymentNotFoundException;
+import com.electricity.api.exception.CustomerNotFoundException;
 import com.electricity.api.model.Bill;
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Meter;
@@ -40,7 +40,7 @@ public class BillController extends Exception {
 
 	@PostMapping("/api/bill/add/{cid}/{mid}")
 	public ResponseEntity<String> postBill(@PathVariable("cid") int cid, @PathVariable("mid") int mid,
-			@RequestBody Bill bill) {
+			@RequestBody Bill bill) throws CustomerNotFoundException {
 
 		// fetch the meter object based on cid
 		Optional<Customer> optionalP = customerService.getCustomerById(cid);

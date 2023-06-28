@@ -13,8 +13,8 @@ public class GlobalExceptionHandler {
 
    
 
-    @ExceptionHandler(PaymentNotFoundException.class)
-    public ResponseEntity<String> handlePaymentNotFoundException(PaymentNotFoundException ex) {
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<String> handlePaymentNotFoundException(CustomerNotFoundException ex) {
         // Customize the response entity and error message based on your requirements
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
@@ -29,15 +29,7 @@ public class GlobalExceptionHandler {
         // Customize the response entity and error message based on your requirements
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
-    @ExceptionHandler(CustomerNotFoundException.class)
-
-    public ResponseEntity<String> handlePaymentNotFoundException(CustomerNotFoundException ex) {
-
-        // Customize the response entity and error message based on your requirements
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-
-    }
+    
 
 
     

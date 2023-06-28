@@ -71,6 +71,14 @@ public class Admin {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Admin [id=" + id + ", name=" + name + ", contactNo=" + contactNo + ", email=" + email + ", user=" + user
+				+ "]";
+	}
+
 	
 	
 

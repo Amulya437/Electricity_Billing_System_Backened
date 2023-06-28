@@ -36,7 +36,15 @@ public class Meter {
 	public void setMeterNo(int meterNo) {
 		this.meterNo = meterNo;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Meter [id=" + id + ", meterNo=" + meterNo + "]";
+	}
+
 	
+
 	
 	
 

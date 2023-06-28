@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.electricity.api.data.BillRepository;
 
 import com.electricity.api.data.PaymentRepository;
+import com.electricity.api.exception.CustomerNotFoundException;
 import com.electricity.api.exception.PaymentNotFoundException;
 import com.electricity.api.model.Bill;
 import com.electricity.api.model.Payment;
@@ -65,42 +66,47 @@ public class PaymentService extends Exception{
 
 	// ...
 
-	public void assign(Payment payment) {
-	    payment.setTotalAmount(payment.getBill().getAmount() + latePaidAmount(payment));
-	    
-	    // Generate transaction ID
-	    String transactionId = generateTransactionId();
-	    payment.setTransactionId(transactionId);
-	    
-	    paymentRepository.save(payment);
-	}
+//	public void assign(Payment payment) {
+//	    payment.setTotalAmount(payment.getBill().getAmount() + latePaidAmount(payment));
+//	    
+//	    // Generate transaction ID
+//	    String transactionId = generateTransactionId();
+//	    //payment.setTransactionId(transactionId);
+//	    paymentRepository.save(payment);
+//	}
 
-	private String generateTransactionId() {
-	    // Define the length of the transaction ID
-	    int length = 10;
-	    
-	    // Define the characters allowed in the transaction ID
-	    String allowedCharacters = "0123456789";
-	    
-	    Random random = new Random();
-	    StringBuilder transactionIdBuilder = new StringBuilder(length);
-	    
-	    // Generate random digits for the transaction ID
-	    for (int i = 0; i < length; i++) {
-	        int randomIndex = random.nextInt(allowedCharacters.length());
-	        char randomChar = allowedCharacters.charAt(randomIndex);
-	        transactionIdBuilder.append(randomChar);
-	    }
-	    
-	    return transactionIdBuilder.toString();
-	}
 
 	
+	
+//	public void  deletePaymentById(int id) throws PaymentNotFoundException{
+//	private String generateTransactionId() {
+//	    // Define the length of the transaction ID
+//	    int length = 10;
+//	    
+//	    // Define the characters allowed in the transaction ID
+//	    String allowedCharacters = "0123456789";
+//	    
+//	    Random random = new Random();
+//	    StringBuilder transactionIdBuilder = new StringBuilder(length);
+//	    
+//	    // Generate random digits for the transaction ID
+//	    for (int i = 0; i < length; i++) {
+//	        int randomIndex = random.nextInt(allowedCharacters.length());
+//	        char randomChar = allowedCharacters.charAt(randomIndex);
+//	        transactionIdBuilder.append(randomChar);
+//	    }
+//     
+//	    return transactionIdBuilder.toString();
+//     }
+//	
+//}
+     
+     
+     public void  deletePaymentById1(int id) throws Exception{
 
-	public void deletePaymentById(int id) throws PaymentNotFoundException{
 		Optional<Payment> payment = paymentRepository.findById(id);
 		if (!payment.isPresent()) {
-			throw new PaymentNotFoundException("Payment not found with ID: " + id);
+			throw new CustomerNotFoundException("Payment not found with ID: " + id);
 		}
 		
 
@@ -108,22 +114,32 @@ public class PaymentService extends Exception{
 
 	}
 
+	
+	
+	
 	public List<Payment> getAllPaymentRecords() {
 		// TODO Auto-generated method stub
 		return paymentRepository.findAll();
 	}
 
-	public Optional<Payment> getPaymentById(int id) throws PaymentNotFoundException{
+	
+	
+	
+	public Optional<Payment> getPaymentById(int id) throws CustomerNotFoundException{
 		// TODO Auto-generated method stub
 		Optional<Payment> payment = paymentRepository.findById(id);
 		if (!payment.isPresent()) {
-			throw new PaymentNotFoundException("Payment not found with ID: " + id);
+			throw new CustomerNotFoundException("Payment not found with ID: " + id);
 		}
 		return payment;
 	}
 
+	
+	
+	
+	
 	// Get payment by customer ID
-	public List<Payment> getPaymentByCustomerId(int cid) throws PaymentNotFoundException{
+	public List<Payment> getPaymentByCustomerId(int cid) throws CustomerNotFoundException{
 		// Fetch all payments from the DB
 		List<Payment> list = paymentRepository.findAll();
 

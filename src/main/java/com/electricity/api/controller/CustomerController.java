@@ -34,114 +34,110 @@ import com.electricity.api.service.MeterService;
 import com.electricity.api.service.UserService;
 import com.electricity.api.util.LoggerUtil;
 
- 
 
 
 @RestController
 @CrossOrigin(origins = {"*"})
 public class CustomerController {
 
-    @Autowired
-    private CustomerService customerService;
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private MeterService meterService;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	
+	@PostMapping("/api/customer/add/{mid}")
+	public ResponseEntity<Object> postCustomer(@PathVariable("mid") int meterId,
+	                                           @RequestBody Customer customer) {
+	    // Fetch User info from customer input and save it in DB 
+	    User user = customer.getUser(); // Assuming you have userName and password
+	    
+	    // Set the user's role as "CUSTOMER"
+	    user.setRole("CUSTOMER");
+	    
+	    // Convert plain text password into encoded text
+	    String encodedPassword = passwordEncoder.encode(user.getPassword());
+	    // Attach encoded password to user
+	    user.setPassword(encodedPassword);
+	    
+	    // Save the user to the userRepository
+	    user = userRepository.save(user);
+	    
+	    // Attach user object to customer
+	    customer.setUser(user);
+	    
+	    // Set the meter using the provided meter ID
+	    Optional<Meter> optionalMeter = meterService.getMeterById(meterId);
+	    if (!optionalMeter.isPresent()) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Meter ID");
+	    }
+	    Meter meter = optionalMeter.get();
+	    customer.setMeter(meter);
+	    
+	    // Save the customer using the customerService
+	    customerService.insertCustomer(customer);
+	    
+	    // Return a success message in the response body
+	    Message message = new Message();
+	    message.setMsg("Customer Registration Is Done");
+	    LoggerUtil.logInfo("Customer details are Posted ");
+	    return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
 
-    @Autowired
-    private MeterService meterService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+   
 
 
-    @PostMapping("/api/customer/add/{mid}")
-    public ResponseEntity<Object> postCustomer(@PathVariable("mid") int meterId,
-                                               @RequestBody Customer customer) {
-        // Fetch User info from customer input and save it in DB 
-        User user = customer.getUser(); // Assuming you have userName and password
+		@GetMapping("/api/customer/getall")
+		public List<Customer> getAllCustomer(){
+			List<Customer> list = customerService.getAllCustomer();
+			return list;
+		}
+		
+		@GetMapping("/api/customer/{customerId}")
+		public ResponseEntity<Object> getCustomerById(@PathVariable("customerId") int customerId) throws CustomerNotFoundException {
+			Optional<Customer> optional = customerService.getCustomerById(customerId);
+			if (!optional.isPresent())
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID given");
+			
+			Customer customer = optional.get();
+			LoggerUtil.logInfo("view customer details are Posted ");
+			return ResponseEntity.status(HttpStatus.OK).body(customer);
+		}
+		
+		@PutMapping("/api/customer/put/{customerId}")
+		public ResponseEntity<String> updateCustomerById (@PathVariable("customerId") int customerId,@RequestBody Customer customer) {
+			customerService.updateCustomerById(customer);
+			LoggerUtil.logInfo("updated customer details are Posted ");
+			return ResponseEntity.status(HttpStatus.OK).body("Customer is updated");
+			}
+		
+		@DeleteMapping("/api/customer/delete/{customerId}")
+		public ResponseEntity<String> deleteCustomerById(@PathVariable("customerId") int customerId,@RequestBody Customer customer) throws CustomerNotFoundException {
 
-        // Set the user's role as "CUSTOMER"
-        user.setRole("CUSTOMER");
+			customerService.deleteCustomerById(customer);
+			LoggerUtil.logInfo("deleted customer details are Posted ");
+			return ResponseEntity.status(HttpStatus.OK).body("Customer is Deleted");
+		}
+		
+		//Get customer by meter id
+		
+	    @GetMapping("/api/customer/meter/{mid}")
+	    public List<Customer> getCustomerByMeterId(@PathVariable("mid") int mid) throws CustomerNotFoundException {
+	    	
+		        List<Customer> list = customerService.getCustomerByMeterId(mid);
+		        return list;
+	}
 
-        // Convert plain text password into encoded text
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        // Attach encoded password to user
-        user.setPassword(encodedPassword);
-
-        // Save the user to the userRepository
-        user = userRepository.save(user);
-
-        // Attach user object to customer
-        customer.setUser(user);
-
-        // Set the meter using the provided meter ID
-        Optional<Meter> optionalMeter = meterService.getMeterById(meterId);
-        if (!optionalMeter.isPresent()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Meter ID");
-        }
-        Meter meter = optionalMeter.get();
-        customer.setMeter(meter);
-
-        // Save the customer using the customerService
-        customerService.insertCustomer(customer);
-
-        // Return a success message in the response body
-        Message message = new Message();
-        message.setMsg("Customer Registration Is Done");
-        LoggerUtil.logInfo("Customer details are Posted ");
-        return ResponseEntity.status(HttpStatus.OK).body(message);
-    }
-
- 
-
- 
-
-
-        @GetMapping("/api/customer/getall")
-        public List<Customer> getAllCustomer(){
-            List<Customer> list = customerService.getAllCustomer();
-            return list;
-        }
-
-        @GetMapping("/api/customer/{customerId}")
-        public ResponseEntity<Object> getCustomerById(@PathVariable("customerId") int customerId) throws CustomerNotFoundException {
-            Optional<Customer> optional = customerService.getCustomerById(customerId);
-            if (!optional.isPresent())
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID given");
-
-            Customer customer = optional.get();
-            LoggerUtil.logInfo("view customer details are Posted ");
-            return ResponseEntity.status(HttpStatus.OK).body(customer);
-        }
-
-        @PutMapping("/api/customer/put/{customerId}")
-        public ResponseEntity<String> updateCustomerById (@PathVariable("customerId") int customerId,@RequestBody Customer customer) {
-            customerService.updateCustomerById(customer);
-            LoggerUtil.logInfo("updated customer details are Posted ");
-            return ResponseEntity.status(HttpStatus.OK).body("Customer is updated");
-            }
-
-        @DeleteMapping("/api/customer/delete/{customerId}")
-        public ResponseEntity<String> deleteCustomerById(@PathVariable("customerId") int customerId,@RequestBody Customer customer) throws CustomerNotFoundException {
-
- 
-
-            customerService.deleteCustomerById(customer);
-            LoggerUtil.logInfo("deleted customer details are Posted ");
-            return ResponseEntity.status(HttpStatus.OK).body("Customer is Deleted");
-        }
-
-        //Get customer by meter id
-
-        @GetMapping("/api/customer/meter/{mid}")
-        public List<Customer> getCustomerByMeterId(@PathVariable("mid") int mid) throws CustomerNotFoundException {
-
-                List<Customer> list = customerService.getCustomerByMeterId(mid);
-                return list;
-    }
-
- 
-
+        
+       
     
 }
 

@@ -6,7 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.electricity.api.data.CustomerRepository;
+
+import com.electricity.api.exception.CustomerNotFoundException;
+
 import com.electricity.api.data.MeterRepository;
+
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Meter;
 
@@ -46,7 +50,7 @@ public class CustomerService {
 	}
 	
 	//Get customer by  Meter ID
-		public List<Customer> getCustomerByMeterId(int mid) {
+		public List<Customer> getCustomerByMeterId(int mid)  {
 			// Fetch all customers from the DB 
 			List<Customer> list = customerRepository.findAll();
 			
