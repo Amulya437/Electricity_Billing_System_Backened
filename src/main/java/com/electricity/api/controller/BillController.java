@@ -20,10 +20,10 @@ import com.electricity.api.exception.CustomerNotFoundException;
 import com.electricity.api.model.Bill;
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Meter;
-import com.electricity.api.model.Payment;
 import com.electricity.api.service.BillService;
 import com.electricity.api.service.CustomerService;
 import com.electricity.api.service.MeterService;
+import com.electricity.api.util.LoggerUtil;
 
 @RestController
 @CrossOrigin(origins = {"*"})
@@ -83,19 +83,33 @@ public class BillController extends Exception {
 		return ResponseEntity.status(HttpStatus.OK).body(bill);
 	}
 
-	@PutMapping("/api/bill/{id}")
-	public ResponseEntity<Bill> updateBillById(@PathVariable("id") int id, @RequestBody Bill bill) throws Exception {
-		bill.setId(id);
-		Bill updatedBill = billService.updateBillById(bill);
-		return new ResponseEntity(updatedBill, HttpStatus.OK);
-	}
+	 @PutMapping("/api/bill/{billId}")
 
-	@DeleteMapping("/api/bill/delete/{id}")
-	public ResponseEntity<String> deleteBillById(@PathVariable("id") int id, @RequestBody Bill bill) throws Exception {
+	    public ResponseEntity<String> updateBillById (@PathVariable("billId") int billId,@RequestBody Bill bill)throws BillNotFoundException {
 
-		billService.deleteBillById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Bill is Deleted");
-	}
+	        billService.updateBillById(bill);
+	        LoggerUtil.logInfo("Bill details are Updated");
+	        
+	        return ResponseEntity.status(HttpStatus.OK).body("Bill is updated");
+
+	        }
+
+ 
+
+	    @DeleteMapping("/api/bill/delete/{billId}")
+
+	    public ResponseEntity<String> deleteBillById(@PathVariable("billId") int billId,@RequestBody Bill bill)throws BillNotFoundException {
+
+	 
+
+	        billService.deleteBillById(bill);
+	        LoggerUtil.logInfo("Bill details by Id are Deleted");
+
+	        return ResponseEntity.status(HttpStatus.OK).body("Bill is Deleted");
+
+	    }
+
+	    
 
 	// 1.Get Bill by customer id
 

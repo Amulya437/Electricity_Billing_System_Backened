@@ -16,3 +16,4 @@ public class LoggerUtil {
 		LOGGER.info(object);
 	}
 }
+

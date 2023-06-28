@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.electricity.api.data.UserRepository;
 import com.electricity.api.model.User;
 
@@ -22,6 +23,8 @@ import com.electricity.api.model.User;
 @RestController
 @CrossOrigin(origins = {"*"})
 @RequestMapping("/api/user")
+
+
 
 public class UserController {
 
@@ -72,4 +75,8 @@ public class UserController {
 		return "Private Role Hello";
 	}
 	
+	 
+	
 }
+
+

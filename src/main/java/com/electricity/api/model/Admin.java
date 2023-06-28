@@ -72,11 +72,13 @@ public class Admin {
 		this.user = user;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Admin [id=" + id + ", name=" + name + ", contactNo=" + contactNo + ", email=" + email + ", user=" + user
 				+ "]";
 	}
+
 	
 	
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.electricity.api.data.AdminRepository;
 
 import com.electricity.api.model.Admin;
-import com.electricity.api.model.Customer;
+
 
 @Service
 

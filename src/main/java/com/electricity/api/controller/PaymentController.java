@@ -15,14 +15,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.electricity.api.exception.CustomerNotFoundException;
+import com.electricity.api.exception.PaymentNotFoundException;
 import com.electricity.api.model.Bill;
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Payment;
 import com.electricity.api.service.BillService;
 import com.electricity.api.service.CustomerService;
 import com.electricity.api.service.PaymentService;
+import com.electricity.api.util.LoggerUtil;
+
 
 @RestController
+
+
+//@CrossOrigin (origins = {"http://localhost:3000"})
+
 @CrossOrigin(origins = {"*"})
 public class PaymentController {
 
@@ -34,50 +41,53 @@ public class PaymentController {
 
 	@Autowired
 	private BillService billService;
-
-	@PostMapping("/add/{billId}/{custId}")
-
-	public ResponseEntity<String> BillPayment(@RequestBody Payment payment,
-
-			@PathVariable("billId") int id,
-
-			@PathVariable("custId") int custId) throws Exception{
-
-		// fetch the bill object based on billId
-
-		Optional<Bill> optionalBill = billService.getBillById(id);
-
-		if (!optionalBill.isPresent())
-
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("entered invalid billId");
-
-		// fetch the customer object based on customerId
-
-		Optional<Customer> optionalCustomer = customerService.getCustomerById(custId);
-
-		if (!optionalCustomer.isPresent())
-
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("entered invalid custId");
-
-		Bill bill = optionalBill.get();
-
-		Customer customer = optionalCustomer.get();
-
-		payment.setBill(bill);
-
-		payment.setCustomer(customer);
-
-		// save the payment object
-
-		paymentService.assign(payment);
-
-		return ResponseEntity.status(HttpStatus.OK).body("Payment Succesfull!!!");
-
-	}
-	
+//
+//	@PostMapping("/add/{billId}/{custId}")
+//
+//	public ResponseEntity<String> BillPayment(@RequestBody Payment payment,
+//
+//			@PathVariable("billId") int id,
+//
+//			@PathVariable("custId") int custId) throws Exception{
+//
+//		// fetch the bill object based on billId
+//
+//		Optional<Bill> optionalBill = billService.getBillById(id);
+//
+//		if (!optionalBill.isPresent())
+//
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("entered invalid billId");
+//		
+//
+//		// fetch the customer object based on customerId
+//
+//		Optional<Customer> optionalCustomer = customerService.getCustomerById(custId);
+//
+//		if (!optionalCustomer.isPresent())
+//
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("entered invalid custId");
+//		
+//
+//		Bill bill = optionalBill.get();
+//
+//		Customer customer = optionalCustomer.get();
+//
+//		payment.setBill(bill);
+//
+//		payment.setCustomer(customer);
+//
+//		// save the payment object
+//
+//		paymentService.assign(payment);
+//		LoggerUtil.logInfo("Payment Successful ");
+//		return ResponseEntity.status(HttpStatus.OK).body("Payment Succesfull!!!");
+//
+//	}
+//	
 	@GetMapping("/api/payment/getall")
 	public List<Payment> getAllPaymentRecords(){
 		List<Payment> list = paymentService.getAllPaymentRecords();
+		LoggerUtil.logInfo(" All Payments details ");
 		return list;
 	}
 	
@@ -88,21 +98,22 @@ public class PaymentController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID given");
 		
 		Payment payment = optional.get();
+		LoggerUtil.logInfo("Payment Details by ID ");
 		return ResponseEntity.status(HttpStatus.OK).body(payment);
 	}
 	
 
-	@DeleteMapping("/api/payment/delete/{paymentId}")
+//	@DeleteMapping("/api/payment/delete/{paymentId}")
+//
+//	public ResponseEntity<String> deletePaymentById(@PathVariable("paymentId") int id,
+//			@RequestBody Payment payment) throws CustomerNotFoundException, PaymentNotFoundException{
+//
+//		paymentService.deletePaymentById(id);
+//		LoggerUtil.logInfo("Payment Deleted ");
+//		return ResponseEntity.status(HttpStatus.OK).body("Payment Record is Deleted");
+//
+//	}
 
-	public ResponseEntity<String> deletePaymentById(@PathVariable("paymentId") int id,
-			@RequestBody Payment payment) throws CustomerNotFoundException{
-
-		paymentService.deletePaymentById(id);
-
-		return ResponseEntity.status(HttpStatus.OK).body("Payment Record is Deleted");
-
-	}
-	
 
     //1.Get Payment by Customer id
 	
@@ -114,3 +125,4 @@ public class PaymentController {
 }
 
 }
+

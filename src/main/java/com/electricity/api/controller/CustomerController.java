@@ -1,8 +1,12 @@
 package com.electricity.api.controller;
 
+ 
+
 
 import java.util.List;
 import java.util.Optional;
+
+ 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+ 
+
 import com.electricity.api.data.UserRepository;
 import com.electricity.api.model.Customer;
 import com.electricity.api.model.Meter;
@@ -29,9 +35,11 @@ import com.electricity.api.service.UserService;
 import com.electricity.api.util.LoggerUtil;
 
 
+
 @RestController
 @CrossOrigin(origins = {"*"})
 public class CustomerController {
+
 	
 	@Autowired
 	private CustomerService customerService;
@@ -84,7 +92,7 @@ public class CustomerController {
 	    return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
 
-
+   
 
 
 		@GetMapping("/api/customer/getall")
@@ -128,5 +136,8 @@ public class CustomerController {
 		        return list;
 	}
 
-	
+        
+       
+    
 }
+

@@ -27,6 +27,8 @@ public class Payment {
 	
 	private LocalDate paymentDate;
 	
+	private String transactionId;
+	
 	@ManyToOne
 	private Customer customer;
 	
@@ -79,8 +81,57 @@ public class Payment {
 				+ customer + ", bill=" + bill + "]";
 	}
 	
-	
-	
-
 }
+	
 
+
+//	public int getId() {
+//		return id;
+//	}
+//
+//	public void setId(int id) {
+//		this.id = id;
+//	}
+//
+//	public double getTotalAmount() {
+//		return totalAmount;
+//	}
+//
+//	public void setTotalAmount(double totalAmount) {
+//		this.totalAmount = totalAmount;
+//	}
+//
+//	public LocalDate getPaymentDate() {
+//		return paymentDate;
+//	}
+//
+//	public void setPaymentDate(LocalDate paymentDate) {
+//		this.paymentDate = paymentDate;
+//	}
+//
+//	public String getTransactionId() {
+//		return transactionId;
+//	}
+//
+//	public void setTransactionId(String transactionId) {
+//		this.transactionId = transactionId;
+//	}
+//
+//	public Customer getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
+//
+//	public Bill getBill() {
+//		return bill;
+//	}
+//
+//	public void setBill(Bill bill) {
+//		this.bill = bill;
+//	}
+//	
+//	
+//}

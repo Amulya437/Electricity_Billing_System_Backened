@@ -117,13 +117,13 @@ public class Bill {
 	public void setMeter(Meter meter) {
 		this.meter = meter;
 	}
-
 	@Override
 	public String toString() {
 		return "Bill [id=" + id + ", consumerNumber=" + consumerNumber + ", consumedUnits=" + consumedUnits
 				+ ", billMonth=" + billMonth + ", billDate=" + billDate + ", amount=" + amount + ", dueDate=" + dueDate
 				+ ", customer=" + customer + ", meter=" + meter + "]";
 	}
+
     
    
     
